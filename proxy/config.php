@@ -16,7 +16,7 @@ $protocol = (isset ( $_SERVER ['HTTPS'] ) && $_SERVER ['HTTPS'] != 'off') ? 'htt
 
 switch ($settings->getGlobalOption ( 'piwik_mode' )) {
     case 'php' :
-        $PIWIK_URL = $protocol . ':' . $settings->getGlobalOption ( 'proxy_url' );
+        $PIWIK_URL = $settings->getGlobalOption ( 'proxy_url' );
         break;
     case 'cloud' :
         $PIWIK_URL = 'https://' . $settings->getGlobalOption ( 'piwik_user' ) . '.innocraft.cloud/';
@@ -25,8 +25,11 @@ switch ($settings->getGlobalOption ( 'piwik_mode' )) {
         $PIWIK_URL = 'https://' . $settings->getGlobalOption ( 'matomo_user' ) . '.matomo.cloud/';
         break;
     default :
-        $PIWIK_URL = $protocol . ':' . $settings->getGlobalOption ( 'piwik_url' );
+        $PIWIK_URL = $settings->getGlobalOption ( 'piwik_url' );
 }
+
+if (substr ( $PIWIK_URL, 0, 2 ) == '//')
+    $PIWIK_URL = $protocol . ':' . $PIWIK_URL;
 
 $TOKEN_AUTH = $settings->getGlobalOption ( 'piwik_token' );
 $timeout = $settings->getGlobalOption ( 'connection_timeout' );
