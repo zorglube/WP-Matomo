@@ -2,7 +2,7 @@
 // Get the install directory of WP. 
 // Usefull for immutable WP install, like : https://github.com/zorglube/clever-wordpress OR https://github.com/CleverCloud/wordpress-bedrock-example where WP core and Plugins are in separate directories
 $wpRootDir = getenv('WP_MATOMO_WP_ROOT_DIR');
-$wpRootDir = isset($wpRootDir)?$wpRootDir:'../../../../';
+$wpRootDir = !empty($wpRootDir)?$wpRootDir:'../../../../';
 require ($wpRootDir.'wp-load.php');
 
 require_once ('../classes/WP_Piwik/Settings.php');
